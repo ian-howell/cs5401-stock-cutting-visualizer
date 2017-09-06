@@ -1,9 +1,28 @@
+#!/usr/bin/python3
+
+# File name:      visualizer.py
+# Author:         Ian Howell
+# Date Created:   09-05-2017
+# Python Version: 3.4
+
+import numpy as np
+import matplotlib.pyplot as plt
 import sys
 
 
 def main():
-    shapes = get_shapes()
-    print(shapes)
+    width, length, shapes = get_shapes()
+
+    arr = np.array([0] * length * width).reshape((width, length))
+
+    curr_shape = 1
+    for shape in shapes:
+        arr = cut_shape(arr, shape, curr_shape)
+        curr_shape += 1
+
+    fig, axes = plt.subplots()
+    axes.imshow(arr)
+    plt.show()
 
 
 def get_shapes():
