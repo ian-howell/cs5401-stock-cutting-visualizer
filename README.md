@@ -38,4 +38,4 @@ and your solution file `placement.txt`:
 4,1,0
 ```
 with an optimal solution of `5`, the visualizer will produce this image:
-![Visualization of Stock-Cutting Problem](/example/visual.png?raw=true)
+![Visualization of Stock-Cutting Problem](examples/visual.png?raw=true)
