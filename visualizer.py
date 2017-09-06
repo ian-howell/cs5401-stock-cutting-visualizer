@@ -22,6 +22,7 @@ def main():
 
     fig, axes = plt.subplots()
     axes.imshow(arr)
+    axes.invert_yaxis()
     plt.show()
 
 
@@ -58,14 +59,14 @@ def cut_shape(arr, shape, shape_id):
     height = len(arr)
     col, row = shape['loc']
     rot = shape['rot']
-    arr[height-row-1][col] = shape_id
+    arr[row][col] = shape_id
     for instruction in shape['cut']:
         direction, count = instruction[0], int(instruction[1])
         tru_dir = directions[(dir_map[direction] + rot) % 4]
         for i in range(count):
             row -= tru_dir[0]
             col += tru_dir[1]
-            arr[height-row-1][col] = shape_id
+            arr[row][col] = shape_id
 
     return arr
 
