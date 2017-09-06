@@ -20,18 +20,17 @@ def get_shapes():
                 shape['rot'] = intermediate[2]
                 shapes.append(shape)
         return width, int(length), shapes
-    except IndexError:
-        usage()
-        exit(1)
     except FileNotFoundError as e:
         print(e, file=sys.stderr)
+        exit(1)
+    except:
+        usage()
         exit(1)
 
 
 def usage():
-    usage_str = """
-                Usage: python {} <shapefile> <placementfile> <required_length>
-                """
+    usage_str = "Usage: python {}"
+    usage_str += "<shapefile> <placementfile> <required_length>"
     print(usage_str.format(sys.argv[0]), file=sys.stderr)
 
 
