@@ -39,3 +39,8 @@ and your solution file `placement.txt`:
 ```
 with an optimal solution of `5`, the visualizer will produce this image:
 ![Visualization of Stock-Cutting Problem](examples/visual.png?raw=true)
+
+
+## TODO
+* Test with more than 2 shapes
+* Change colors. They're kinda ugly as is
