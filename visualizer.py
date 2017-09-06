@@ -28,6 +28,29 @@ def get_shapes():
         exit(1)
 
 
+def cut_shape(arr, shape, shape_id):
+    dir_map = {'U': 0, 'R': 1, 'D': 2, 'L': 3}
+    directions = [
+            (-1, 0),  # Up
+            (0, +1),  # Right
+            (+1, 0),  # Down
+            (0, -1)   # Left
+            ]
+    height = len(arr)
+    col, row = shape['loc']
+    rot = shape['rot']
+    arr[height-row-1][col] = shape_id
+    for instruction in shape['cut']:
+        direction, count = instruction[0], int(instruction[1])
+        tru_dir = directions[(dir_map[direction] + rot) % 4]
+        for i in range(count):
+            row -= tru_dir[0]
+            col += tru_dir[1]
+            arr[height-row-1][col] = shape_id
+
+    return arr
+
+
 def usage():
     usage_str = "Usage: python {}"
     usage_str += "<shapefile> <placementfile> <required_length>"
