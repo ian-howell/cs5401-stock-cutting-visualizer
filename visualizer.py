@@ -56,7 +56,6 @@ def cut_shape(arr, shape, shape_id):
             (+1, 0),  # Down
             (0, -1)   # Left
             ]
-    height = len(arr)
     col, row = shape['loc']
     rot = shape['rot']
     arr[row][col] = shape_id
@@ -73,7 +72,7 @@ def cut_shape(arr, shape, shape_id):
 
 def usage():
     usage_str = "Usage: python {}"
-    usage_str += "<shapefile> <placementfile> <required_length>"
+    usage_str += " <shapefile> <placementfile> <required_length>"
     print(usage_str.format(sys.argv[0]), file=sys.stderr)
 
 
