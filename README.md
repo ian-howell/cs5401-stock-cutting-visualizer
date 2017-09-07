@@ -42,5 +42,9 @@ with an optimal solution of `5`, the visualizer will produce this image:
 
 
 ## TODO
-* Test with more than 2 shapes
 * Change colors. They're kinda ugly as is
+* Optional arguments:
+  * Add gridlines
+
+### Completed Tasks
+* ~~Test with more than 2 shapes~~
