@@ -23,6 +23,13 @@ def main():
     fig, axes = plt.subplots()
     axes.imshow(arr)
     axes.invert_yaxis()
+
+    y_ticks = [y for y in range(0, width, 5)]
+    x_ticks = [x for x in range(0, length, 5)]
+    plt.yticks(y_ticks)
+    plt.xticks(x_ticks)
+    plt.minorticks_on()
+
     plt.show()
 
 
