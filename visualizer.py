@@ -70,7 +70,8 @@ def cut_shape(arr, shape, shape_id):
         for i in range(count):
             row -= tru_dir[0]
             col += tru_dir[1]
-            arr[row][col] = shape_id
+            if (row >= 0) and (col >= 0):
+                arr[row][col] = shape_id
 
     return arr
 
