@@ -19,7 +19,7 @@ the placement file). Once you have a working EA and have produced some solution
 files (and their required amount of material), you may simply run the
 visualizer like so:
 ```bash
-python3 visualizer.py shapes.txt placement.txt 10
+python3 visualizer.py -s shapes.txt -p placement.txt -l 10
 ```
 In the above example, `10` is the minimum amount of material required by the
 solution.
@@ -44,7 +44,7 @@ with an optimal solution of `5`, the visualizer will produce this image:
 ## TODO
 * Change colors. They're kinda ugly as is
 * Optional arguments:
-  * Add gridlines
+  * Fix gridlines
 
 ### Completed Tasks
 * ~~Test with more than 2 shapes~~
