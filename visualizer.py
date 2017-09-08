@@ -45,7 +45,7 @@ def get_shapes(shapefilename, placementfilename):
         width, _ = (int(x) for x in sf.readline().strip().split(' '))
         for cut, place_rot in zip(sf, pf):
             shape = {}
-            shape['cut'] = tuple(cut.strip().split(','))
+            shape['cut'] = tuple(cut.strip().split(' '))
             intermediate = [int(x) for x in place_rot.strip().split(',')]
             shape['loc'] = tuple(intermediate[:2])
             shape['rot'] = intermediate[2]
