@@ -18,14 +18,15 @@ def main():
     width, shapes = get_shapes(args['shapefile'], args['placementfile'])
     length = args['length']
 
-    arr = np.array([0] * length * width).reshape((width, length))
+    arr = np.zeros(length * width).reshape((width, length))
 
     curr_shape = 1
     for shape in shapes:
         arr = cut_shape(axes, arr, shape, curr_shape)
         curr_shape += 1
 
-    axes.imshow(arr)
+    arr = np.ma.masked_where(arr == 0, arr)
+    axes.imshow(arr, cmap='rainbow')
     axes.invert_yaxis()
 
     if args['grid']:
