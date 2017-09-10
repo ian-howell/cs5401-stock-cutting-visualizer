@@ -59,10 +59,10 @@ def get_shapes(shapefilename, placementfilename):
 def cut_shape(ax, arr, shape, shape_id):
     dir_map = {'U': 0, 'R': 1, 'D': 2, 'L': 3}
     directions = [
-            (-1, 0),  # Up
+            (+1, 0),  # Up
             (0, +1),  # Right
-            (+1, 0),  # Down
-            (0, -1)   # Left
+            (-1, 0),  # Down
+            (0, -1),  # Left
             ]
     col, row = shape['loc']
     rot = shape['rot']
@@ -73,7 +73,7 @@ def cut_shape(ax, arr, shape, shape_id):
         direction, count = instruction[0], int(instruction[1])
         tru_dir = directions[(dir_map[direction] + rot) % 4]
         for i in range(count):
-            row -= tru_dir[0]
+            row += tru_dir[0]
             col += tru_dir[1]
             if (row >= 0) and (col >= 0):
                 arr[row][col] = shape_id
