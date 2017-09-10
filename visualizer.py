@@ -11,7 +11,10 @@ import matplotlib.pyplot as plt
 import sys
 
 
-def main(args):
+def main():
+    fig = plt.figure()
+    axes = fig.add_subplot(111)
+
     width, shapes = get_shapes(args['shapefile'], args['placementfile'])
     length = args['length']
 
@@ -19,10 +22,9 @@ def main(args):
 
     curr_shape = 1
     for shape in shapes:
-        arr = cut_shape(arr, shape, curr_shape)
+        arr = cut_shape(axes, arr, shape, curr_shape)
         curr_shape += 1
 
-    fig, axes = plt.subplots()
     axes.imshow(arr)
     axes.invert_yaxis()
 
@@ -53,7 +55,7 @@ def get_shapes(shapefilename, placementfilename):
     return width, shapes
 
 
-def cut_shape(arr, shape, shape_id):
+def cut_shape(ax, arr, shape, shape_id):
     dir_map = {'U': 0, 'R': 1, 'D': 2, 'L': 3}
     directions = [
             (-1, 0),  # Up
@@ -64,6 +66,8 @@ def cut_shape(arr, shape, shape_id):
     col, row = shape['loc']
     rot = shape['rot']
     arr[row][col] = shape_id
+    if args['number']:
+        ax.text(col, row, str(shape_id - 1), ha='center', va='center')
     for instruction in shape['cut']:
         direction, count = instruction[0], int(instruction[1])
         tru_dir = directions[(dir_map[direction] + rot) % 4]
@@ -72,6 +76,9 @@ def cut_shape(arr, shape, shape_id):
             col += tru_dir[1]
             if (row >= 0) and (col >= 0):
                 arr[row][col] = shape_id
+                if args['number']:
+                    ax.text(col, row, str(shape_id - 1),
+                            ha='center', va='center')
 
     return arr
 
@@ -81,6 +88,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog=sys.argv[0])
     parser.add_argument('-g', '--grid', action='store_true',
                         help='Turn on gridlines')
+    parser.add_argument('-n', '--number', action='store_true',
+                        help='Turn on shape_ids')
     parser.add_argument('-s', '--shapefile', action='store', required=True,
                         help='File containing the list of shapes')
     parser.add_argument('-p', '--placementfile', action='store', required=True,
@@ -88,6 +97,8 @@ if __name__ == "__main__":
     parser.add_argument('-l', '--length', action='store',
                         type=int, required=True,
                         help='Maximum required length for solution')
-    args = parser.parse_args()
 
-    main(vars(args))
+    global args
+    args = vars(parser.parse_args())
+
+    main()
