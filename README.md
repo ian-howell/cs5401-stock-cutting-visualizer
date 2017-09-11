@@ -24,13 +24,17 @@ python3 visualizer.py -s shapes.txt -p placement.txt -l 10
 In the above example, `10` is the minimum amount of material required by the
 solution.
 
+*NOTE:* The visualizer assumes that rotations will be done in the _clockwise_
+direction, i.e. a rotation of 1 will rotate 90 degrees clockwise and a rotation
+of 3 will rotate 90 degrees anti-clockwise.
+
 #### Optional Arguments
 The following options may make it easier to see what's going on:
 * `-n`: Turn on shape ids. This will label each shape in the order they were
   received to make it clear which shape came from which line of the input file
 * `-g`: Turn on gridlines. This option adds a grid that makes it much easier to
-  see where each shape is located. *NOTE:* This option is buggy for very small
-  inputs
+  see where each shape is located.  
+  *NOTE:* This option is buggy for very small inputs
 
 ### Example
 Example files and outputs are found in the `examples` directory.  
