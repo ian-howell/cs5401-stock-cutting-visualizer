@@ -24,6 +24,14 @@ python3 visualizer.py -s shapes.txt -p placement.txt -l 10
 In the above example, `10` is the minimum amount of material required by the
 solution.
 
+#### Optional Arguments
+The following options may make it easier to see what's going on:
+* `-n`: Turn on shape ids. This will label each shape in the order they were
+  received to make it clear which shape came from which line of the input file
+* `-g`: Turn on gridlines. This option adds a grid that makes it much easier to
+  see where each shape is located. *NOTE:* This option is buggy for very small
+  inputs
+
 ### Example
 Example files and outputs are found in the `examples` directory.  
 Given `shapes.txt`:
@@ -37,14 +45,12 @@ and your solution file `placement.txt`:
 3,2,1
 4,1,0
 ```
-with an optimal solution of `5`, the visualizer will produce this image:
-![Visualization of Stock-Cutting Problem](examples/visual.png?raw=true)
+with an optimal solution of `5`, and shape ids turned on the visualizer will
+produce this image: ![Visualization of Stock-Cutting
+Problem](examples/visual.png?raw=true)
 
+And here is a snippet from a much larger sheet: ![Big
+Visual](example/visual2.png?raw=true)
 
 ## TODO
-* Change colors. They're kinda ugly as is
-* Optional arguments:
-  * Fix gridlines
-
-### Completed Tasks
-* ~~Test with more than 2 shapes~~
+* Fix gridlines neara the outside boundaries
