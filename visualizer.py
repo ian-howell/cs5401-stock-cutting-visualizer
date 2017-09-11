@@ -16,7 +16,7 @@ def main():
     axes = fig.add_subplot(111)
 
     width, shapes = get_shapes(args['shapefile'], args['placementfile'])
-    length = args['length']
+    length = args['length'] + 1  # Pad with one space because of 0-indexing
 
     arr = np.zeros(length * width).reshape((width, length))
 
