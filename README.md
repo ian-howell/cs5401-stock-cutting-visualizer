@@ -54,7 +54,7 @@ produce this image: ![Visualization of Stock-Cutting
 Problem](examples/visual.png?raw=true)
 
 And here is a snippet from a much larger sheet: ![Big
-Visual](example/visual2.png?raw=true)
+Visual](examples/visual2.png?raw=true)
 
 ## TODO
-* Fix gridlines neara the outside boundaries
+* Fix gridlines near the outside boundaries
