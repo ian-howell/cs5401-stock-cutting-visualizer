@@ -33,8 +33,10 @@ def main():
         axes.grid(which='major', linewidth=1, alpha=0.5)
         axes.grid(which='minor', linewidth=1, alpha=0.25)
 
-    y_ticks = [y for y in range(0, width, 5)]
-    x_ticks = [x for x in range(0, length, 5)]
+    tick_width = width - (width % 5) + 1
+    tick_length = length - (length % 5) + 1
+    y_ticks = [y for y in range(0, tick_width, 5)]
+    x_ticks = [x for x in range(0, tick_length, 5)]
     plt.yticks(y_ticks)
     plt.xticks(x_ticks)
     plt.minorticks_on()
