@@ -40,6 +40,7 @@ def main():
     plt.minorticks_on()
 
     plt.show()
+    plt.close()
 
 
 def get_shapes(shapefilename, placementfilename):
