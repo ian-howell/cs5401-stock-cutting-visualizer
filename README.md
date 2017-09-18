@@ -44,8 +44,8 @@ Example files and outputs are found in the `examples` directory.
 Given `shapes.txt`:
 ```
 5 2
-R1,D1
-D1,L4,R1,U3,R3
+R1 D1
+D1 L4 R1 U3 R3
 ```
 and your solution file `placement.txt`:
 ```
