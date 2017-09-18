@@ -87,6 +87,12 @@ def cut_shape(ax, arr, shape, shape_id):
     return arr
 
 
+def grow(arr):
+    new_arr = np.zeros((arr.shape[0], arr.shape[1] + 5))
+    new_arr = np.hstack((arr, np.zeros((arr.shape[0], 5))))
+    return new_arr
+
+
 if __name__ == "__main__":
     # Get arguments
     parser = argparse.ArgumentParser(prog=sys.argv[0])
