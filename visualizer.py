@@ -28,6 +28,11 @@ def main():
         arr = cut_shape(axes, arr, shape, curr_shape)
         curr_shape += 1
 
+    # If there are no shapes on the sheet, stop
+    if (np.count_nonzero(arr) == 0):
+        print("There are no shapes on the sheet")
+        exit(0)
+
     arr = np.ma.masked_where(arr == 0, arr)
     axes.imshow(arr, cmap='rainbow')
     axes.invert_yaxis()
@@ -63,6 +68,9 @@ def get_shapes(shapefilename, placementfilename):
 
 
 def cut_shape(ax, arr, shape, shape_id):
+    def out_of_bounds(r, c):
+        return (r < 0) or (r >= arr.shape[0]) or (c < 0)
+
     dir_map = {'U': 0, 'R': 1, 'D': 2, 'L': 3}
     directions = [
             (+1, 0),  # Up
@@ -77,9 +85,14 @@ def cut_shape(ax, arr, shape, shape_id):
     while (col > arr.shape[1]):
         arr = grow(arr)
 
-    arr[row][col] = shape_id
-    if args['number']:
-        ax.text(col, row, str(shape_id - 1), ha='center', va='center')
+    if out_of_bounds(row, col):
+        fmt = "Shape {} is out of bounds at row {}, col {}"
+        print(fmt.format(shape_id, row, col))
+    else:
+        arr[row][col] = shape_id
+        if args['number']:
+            ax.text(col, row, str(shape_id - 1), ha='center', va='center')
+
     for instruction in shape['cut']:
         direction, count = instruction[0], int(instruction[1])
         tru_dir = directions[(dir_map[direction] + rot) % 4]
@@ -91,7 +104,10 @@ def cut_shape(ax, arr, shape, shape_id):
             while (col > arr.shape[1]):
                 arr = grow(arr)
 
-            if (row >= 0) and (col >= 0):
+            if out_of_bounds(row, col):
+                fmt = "Shape {} is out of bounds at row {}, col {}"
+                print(fmt.format(shape_id, row, col))
+            else:
                 arr[row][col] = shape_id
                 if args['number']:
                     ax.text(col, row, str(shape_id - 1),
