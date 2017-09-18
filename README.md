@@ -19,7 +19,7 @@ the placement file). Once you have a working EA and have produced some solution
 files (and their required amount of material), you may simply run the
 visualizer like so:
 ```bash
-python3 visualizer.py -s shapes.txt -p placement.txt -l 10
+python3 visualizer.py -s shapes.txt -p placement.txt
 ```
 In the above example, `10` is the minimum amount of material required by the
 solution.
@@ -35,6 +35,9 @@ The following options may make it easier to see what's going on:
 * `-g`: Turn on gridlines. This option adds a grid that makes it much easier to
   see where each shape is located.  
   *NOTE:* This option is buggy for very small inputs
+* `-l [num]`: Give the sheet a starting length. This is _not_ required, but it
+  may speed up operation, especially if you know that your sheet is going to be
+  very large
 
 ### Example
 Example files and outputs are found in the `examples` directory.  

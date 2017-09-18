@@ -16,7 +16,10 @@ def main():
     axes = fig.add_subplot(111)
 
     width, shapes = get_shapes(args['shapefile'], args['placementfile'])
-    length = args['length'] + 1  # Pad with one space because of 0-indexing
+    if args['length']:
+        length = args['length'] + 1  # Pad with one space because of 0-indexing
+    else:
+        length = 5
 
     arr = np.zeros(length * width).reshape((width, length))
 
@@ -69,6 +72,11 @@ def cut_shape(ax, arr, shape, shape_id):
             ]
     col, row = shape['loc']
     rot = shape['rot']
+
+    # Resize the sheet if needed
+    while (col > arr.shape[1]):
+        arr = grow(arr)
+
     arr[row][col] = shape_id
     if args['number']:
         ax.text(col, row, str(shape_id - 1), ha='center', va='center')
@@ -78,6 +86,11 @@ def cut_shape(ax, arr, shape, shape_id):
         for i in range(count):
             row += tru_dir[0]
             col += tru_dir[1]
+
+            # Resize the sheet if needed
+            while (col > arr.shape[1]):
+                arr = grow(arr)
+
             if (row >= 0) and (col >= 0):
                 arr[row][col] = shape_id
                 if args['number']:
@@ -104,8 +117,7 @@ if __name__ == "__main__":
                         help='File containing the list of shapes')
     parser.add_argument('-p', '--placementfile', action='store', required=True,
                         help='File containing the placement of shapes')
-    parser.add_argument('-l', '--length', action='store',
-                        type=int, required=True,
+    parser.add_argument('-l', '--length', action='store', type=int,
                         help='Maximum required length for solution')
 
     global args
