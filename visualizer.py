@@ -68,9 +68,6 @@ def get_shapes(shapefilename, placementfilename):
 
 
 def cut_shape(ax, arr, shape, shape_id):
-    def out_of_bounds(r, c):
-        return (r < 0) or (r >= arr.shape[0]) or (c < 0)
-
     dir_map = {'U': 0, 'R': 1, 'D': 2, 'L': 3}
     directions = [
             (+1, 0),  # Up
@@ -85,14 +82,10 @@ def cut_shape(ax, arr, shape, shape_id):
     while (col > arr.shape[1]):
         arr = grow(arr)
 
-    if out_of_bounds(row, col):
-        fmt = "Shape {} is out of bounds at row {}, col {}"
-        print(fmt.format(shape_id, row, col))
-    else:
-        arr[row][col] = shape_id
-        if args['number']:
-            ax.text(col, row, str(shape_id - 1), ha='center', va='center')
+    # Add the start square
+    add_square(ax, arr, row, col, shape_id)
 
+    # Get the new row and col
     for instruction in shape['cut']:
         direction, count = instruction[0], int(instruction[1])
         tru_dir = directions[(dir_map[direction] + rot) % 4]
@@ -104,14 +97,8 @@ def cut_shape(ax, arr, shape, shape_id):
             while (col > arr.shape[1]):
                 arr = grow(arr)
 
-            if out_of_bounds(row, col):
-                fmt = "Shape {} is out of bounds at row {}, col {}"
-                print(fmt.format(shape_id, row, col))
-            else:
-                arr[row][col] = shape_id
-                if args['number']:
-                    ax.text(col, row, str(shape_id - 1),
-                            ha='center', va='center')
+            # Add the current square
+            add_square(ax, arr, row, col, shape_id)
 
     return arr
 
@@ -120,6 +107,25 @@ def grow(arr):
     new_arr = np.zeros((arr.shape[0], arr.shape[1] + 5))
     new_arr = np.hstack((arr, np.zeros((arr.shape[0], 5))))
     return new_arr
+
+
+def add_square(ax, arr, row, col, shape_id):
+    if out_of_bounds(row, col, arr.shape[0]):
+        # Shape is out of bounds
+        fmt = "Shape {} is out of bounds at row {}, col {}"
+        print(fmt.format(shape_id, row, col))
+    elif (arr[row][col] != 0) and (arr[row][col] != shape_id):
+        # Shape is overlapping another shape (not itself)
+        fmt = "Shape {} is overlapping shape {} at row {}, col {}"
+        print(fmt.format(shape_id, int(arr[row][col]), row, col))
+    else:
+        arr[row][col] = shape_id
+        if args['number']:
+            ax.text(col, row, str(shape_id - 1), ha='center', va='center')
+
+
+def out_of_bounds(r, c, max_r):
+    return (r < 0) or (r >= max_r) or (c < 0)
 
 
 if __name__ == "__main__":
