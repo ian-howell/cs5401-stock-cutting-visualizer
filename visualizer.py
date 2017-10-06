@@ -79,7 +79,7 @@ def cut_shape(ax, arr, shape, shape_id):
     rot = shape['rot']
 
     # Resize the sheet if needed
-    while (col > arr.shape[1]):
+    while (col >= arr.shape[1]):
         arr = grow(arr)
 
     # Add the start square
@@ -94,7 +94,7 @@ def cut_shape(ax, arr, shape, shape_id):
             col += tru_dir[1]
 
             # Resize the sheet if needed
-            while (col > arr.shape[1]):
+            while (col >= arr.shape[1]):
                 arr = grow(arr)
 
             # Add the current square
@@ -104,7 +104,6 @@ def cut_shape(ax, arr, shape, shape_id):
 
 
 def grow(arr):
-    new_arr = np.zeros((arr.shape[0], arr.shape[1] + 5))
     new_arr = np.hstack((arr, np.zeros((arr.shape[0], 5))))
     return new_arr
 
