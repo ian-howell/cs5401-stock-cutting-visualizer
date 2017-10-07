@@ -41,6 +41,9 @@ def main():
         axes.grid(which='major', linewidth=1, alpha=0.5)
         axes.grid(which='minor', linewidth=1, alpha=0.25)
 
+    width = arr.shape[0]
+    length = arr.shape[1]
+
     tick_width = width - (width % 5) + 1
     tick_length = length - (length % 5) + 1
     y_ticks = [y for y in range(0, tick_width, 5)]
@@ -104,7 +107,8 @@ def cut_shape(ax, arr, shape, shape_id):
 
 
 def grow(arr):
-    new_arr = np.hstack((arr, np.zeros((arr.shape[0], 5))))
+    # new_arr = np.hstack((arr, np.zeros((arr.shape[0], 5))))
+    new_arr = np.append(arr, np.zeros((arr.shape[0], 5)), axis=1)
     return new_arr
 
 
